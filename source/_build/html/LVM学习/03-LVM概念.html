@@ -35,7 +35,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="My_Study_Lvm v0.1 documentation" href="../index.html"/> 
+    <link rel="top" title="My_Study_Lvm v0.1 documentation" href="../index.html"/>
+        <link rel="next" title="04 安装lvm" href="04-安装LVM.html"/>
+        <link rel="prev" title="02 02-什么是LVM" href="02-什么是LVM.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,21 +90,27 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">03 LVM概念</a><ul>
-<li><a class="reference internal" href="#id1">3.1 预览</a></li>
-<li><a class="reference internal" href="#vg">3.1 卷组 (VG)</a></li>
-<li><a class="reference internal" href="#pv">3.2 物理卷 (PV)</a></li>
-<li><a class="reference internal" href="#lv">3.3 逻辑卷 (LV)</a></li>
-<li><a class="reference internal" href="#pe">3.4 物理区块 (PE)</a></li>
-<li><a class="reference internal" href="#le">3.5 逻辑区块 (LE)</a></li>
-<li><a class="reference internal" href="#linear-striped">3.6 映射模式 (linear/striped)</a></li>
-<li><a class="reference internal" href="#id2">3.7 快照</a></li>
+              <p class="caption"><span class="caption-text">LVM学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-简介.html">01 简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-什么是LVM.html">02 02-什么是LVM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-什么是LVM.html#id1">02 什么是LVM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">03 LVM概念</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">3.1 预览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vg">3.1 卷组 (VG)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pv">3.2 物理卷 (PV)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lv">3.3 逻辑卷 (LV)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pe">3.4 物理区块 (PE)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#le">3.5 逻辑区块 (LE)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linear-striped">3.6 映射模式 (linear/striped)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">3.7 快照</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="04-安装LVM.html">04 安装lvm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-LVM操作.html">05 LVM操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-转化根文件系统到LVM.html">06 转化根文件系统到LVM</a></li>
 </ul>
-</div>
+
             
           
         </div>
@@ -212,13 +220,12 @@
 <h2>3.6 映射模式 (linear/striped)<a class="headerlink" href="#linear-striped" title="Permalink to this headline">¶</a></h2>
 <p>线性映射 : 将分配一定范围的PE到LV的一个区域，例如LE 1 - 99映射到PV1，LE 100 - 347映射到PV2。</p>
 <p>分条映射 : 将跨多个物理卷交织逻辑盘区的块，这个方式一定程度上提高了性能，具体如下</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>1st chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV1<span class="o">[</span><span class="m">1</span><span class="o">]</span>, <span class="c1">#第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。</span>
+2nd chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV2<span class="o">[</span><span class="m">1</span><span class="o">]</span>,
+3rd chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV3<span class="o">[</span><span class="m">1</span><span class="o">]</span>,
+4th chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV1<span class="o">[</span><span class="m">2</span><span class="o">]</span>,
 </pre></div>
 </div>
-<p>　　1st chunk of LE[1] -&gt; PV1[1], #第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。
-　　2nd chunk of LE[1] -&gt; PV2[1],
-　　3rd chunk of LE[1] -&gt; PV3[1],
-　　4th chunk of LE[1] -&gt; PV1[2],</p>
 </div>
 <div class="section" id="id2">
 <h2>3.7 快照<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -235,6 +242,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="04-安装LVM.html" class="btn btn-neutral float-right" title="04 安装lvm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="02-什么是LVM.html" class="btn btn-neutral" title="02 02-什么是LVM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

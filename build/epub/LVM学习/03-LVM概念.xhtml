@@ -61,13 +61,12 @@
 <h2>3.6 映射模式 (linear/striped)</h2>
 <p>线性映射 : 将分配一定范围的PE到LV的一个区域，例如LE 1 - 99映射到PV1，LE 100 - 347映射到PV2。</p>
 <p>分条映射 : 将跨多个物理卷交织逻辑盘区的块，这个方式一定程度上提高了性能，具体如下</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>1st chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV1<span class="o">[</span><span class="m">1</span><span class="o">]</span>, <span class="c1">#第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。</span>
+2nd chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV2<span class="o">[</span><span class="m">1</span><span class="o">]</span>,
+3rd chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV3<span class="o">[</span><span class="m">1</span><span class="o">]</span>,
+4th chunk of LE<span class="o">[</span><span class="m">1</span><span class="o">]</span> -&gt; PV1<span class="o">[</span><span class="m">2</span><span class="o">]</span>,
 </pre></div>
 </div>
-<p>　　1st chunk of LE[1] -&gt; PV1[1], #第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。
-　　2nd chunk of LE[1] -&gt; PV2[1],
-　　3rd chunk of LE[1] -&gt; PV3[1],
-　　4th chunk of LE[1] -&gt; PV1[2],</p>
 </div>
 <div class="section" id="id2">
 <h2>3.7 快照</h2>

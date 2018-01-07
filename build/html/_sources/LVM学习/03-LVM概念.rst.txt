@@ -56,12 +56,12 @@
 
 分条映射 : 将跨多个物理卷交织逻辑盘区的块，这个方式一定程度上提高了性能，具体如下
 
-.. code-block:: text
+.. code-block:: bash
 
-　　1st chunk of LE[1] -> PV1[1], #第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。
-　　2nd chunk of LE[1] -> PV2[1],
-　　3rd chunk of LE[1] -> PV3[1],
-　　4th chunk of LE[1] -> PV1[2],
+    1st chunk of LE[1] -> PV1[1], #第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。
+    2nd chunk of LE[1] -> PV2[1],
+    3rd chunk of LE[1] -> PV3[1],
+    4th chunk of LE[1] -> PV1[2],
 
 3.7 快照
 -----------------------------------------------------------------
