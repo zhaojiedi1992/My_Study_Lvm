@@ -7,12 +7,13 @@ Welcome to My_Study_Lvm's documentation!
 ========================================
 
 .. toctree::
-    :maxdepth: 2
-    :caption: LVM学习 
+   :maxdepth: 2
+   :caption: LVM学习 
 
     LVM学习/01-简介
     LVM学习/02-什么是LVM
     LVM学习/03-LVM概念
-    LVM学习/04-安装LVM
-    LVM学习/05-LVM操作
-    LVM学习/06-转化根文件系统到LVM
+    LVM学习/04-常见问题
+    LVM学习/05-安装LVM
+    LVM学习/06-LVM操作
+    LVM学习/07-磁盘分区

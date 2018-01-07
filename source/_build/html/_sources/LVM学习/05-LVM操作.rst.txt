@@ -1,0 +1,88 @@
+05 LVM操作
+=========================================
+
+5.1 初始化磁盘或者磁盘分区
+--------------------------------------------------------
+
+运行pvcreate 在整个磁盘上
+
+.. code-block:: bash
+
+    # pvcreate /dev/hdb
+
+运行pvcreate 在分区上
+
+.. code-block:: bash
+
+    # pvcreate /dev/hdb1
+
+.. attention:: 不建议在整个硬盘上创建lvm，没有分区信息容易被其他系统识别为干净的磁盘。
+
+5.2 创建卷组
+-------------------------------------------------------------------------
+
+创建卷组需要在指定的物理卷上面的。
+
+.. code-block:: bash
+
+    # vgcreate my_volume_group /dev/hda1 /dev/hdb1 
+
+创建卷组是可以指定卷大小的，默认是32M。
+
+5.3 激活一个卷组
+---------------------------------------------------------------
+
+如果我们重启系统或者关闭了卷组就需要激活它。
+
+.. code-block:: bash
+
+    # vgchange -a y my_volume_group
+
+5.4 移除一个卷组
+----------------------------------------------------------------
+
+移除卷组需要先停掉卷组的。
+
+.. code-block:: bash
+
+    # vgchange -a n my_volume_group
+    # vgremove my_volume_group
+
+5.5 添加物理卷到卷组中
+------------------------------------------------------------------------
+
+.. code-block:: bash
+
+    # vgextend my_volume_group /dev/hdc1
+
+5.6 从一个卷组中移除一个物理卷
+-----------------------------------------------------------------------------
+
+移除物理卷前必须确保空间是足够的，使用pvdisplay查看
+
+.. code-block:: bash
+
+    # pvdisplay /dev/hda1
+
+    --- Physical volume ---
+    PV Name               /dev/hda1
+    VG Name               myvg
+    PV Size               1.95 GB / NOT usable 4 MB [LVM: 122 KB]
+    PV#                   1
+    PV Status             available
+    Allocatable           yes (but full)
+    Cur LV                1
+    PE Size (KByte)       4096
+    Total PE              499
+    Free PE               0
+    Allocated PE          499
+    PV UUID               Sd44tK-9IRw-SrMC-MOkn-76iP-iftz-OVSen7
+
+如果没啥问题了，可以执行vgreduce去移出物理卷。
+
+.. code-block:: bash
+
+    # vgreduce my_volume_group /dev/hda1
+
+5.7 创建一个逻辑卷
+--------------------------------------------------------

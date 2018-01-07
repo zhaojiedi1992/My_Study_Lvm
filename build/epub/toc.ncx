@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="unknown"/>
+    <meta name="dtb:depth" content="2"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>My_Study_Lvm v0.1 documentation</text>
+  </docTitle>
+  <navMap>    
+    <navPoint id="navPoint1" playOrder="1">
+      <navLabel>
+        <text>Welcome to My_Study_Lvm’s documentation!</text>
+      </navLabel>
+      <content src="index.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint2" playOrder="2">
+      <navLabel>
+        <text>01 简介</text>
+      </navLabel>
+      <content src="LVM学习/01-简介.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint3" playOrder="3">
+      <navLabel>
+        <text>02 02-什么是LVM</text>
+      </navLabel>
+      <content src="LVM学习/02-什么是LVM.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint4" playOrder="4">
+      <navLabel>
+        <text>02 什么是LVM</text>
+      </navLabel>
+      <content src="LVM学习/02-什么是LVM.xhtml#id1" />  
+    </navPoint>
+    <navPoint id="navPoint5" playOrder="5">
+      <navLabel>
+        <text>03 LVM概念</text>
+      </navLabel>
+      <content src="LVM学习/03-LVM概念.xhtml" />  
+      <navPoint id="navPoint6" playOrder="5">
+        <navLabel>
+          <text>03 LVM概念</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint7" playOrder="6">
+        <navLabel>
+          <text>3.1 预览</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#id1" />  
+      </navPoint>
+      <navPoint id="navPoint8" playOrder="7">
+        <navLabel>
+          <text>3.1 卷组 (VG)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#vg" />  
+      </navPoint>
+      <navPoint id="navPoint9" playOrder="8">
+        <navLabel>
+          <text>3.2 物理卷 (PV)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#pv" />  
+      </navPoint>
+      <navPoint id="navPoint10" playOrder="9">
+        <navLabel>
+          <text>3.3 逻辑卷 (LV)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#lv" />  
+      </navPoint>
+      <navPoint id="navPoint11" playOrder="10">
+        <navLabel>
+          <text>3.4 物理区块 (PE)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#pe" />  
+      </navPoint>
+      <navPoint id="navPoint12" playOrder="11">
+        <navLabel>
+          <text>3.5 逻辑区块 (LE)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#le" />  
+      </navPoint>
+      <navPoint id="navPoint13" playOrder="12">
+        <navLabel>
+          <text>3.6 映射模式 (linear/striped)</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#linear-striped" />  
+      </navPoint>
+      <navPoint id="navPoint14" playOrder="13">
+        <navLabel>
+          <text>3.7 快照</text>
+        </navLabel>
+        <content src="LVM学习/03-LVM概念.xhtml#id2" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint15" playOrder="14">
+      <navLabel>
+        <text>04 安装lvm</text>
+      </navLabel>
+      <content src="LVM学习/04-安装LVM.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint16" playOrder="15">
+      <navLabel>
+        <text>05 LVM操作</text>
+      </navLabel>
+      <content src="LVM学习/05-LVM操作.xhtml" />  
+      <navPoint id="navPoint17" playOrder="15">
+        <navLabel>
+          <text>05 LVM操作</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint18" playOrder="16">
+        <navLabel>
+          <text>5.1 初始化磁盘或者磁盘分区</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id1" />  
+      </navPoint>
+      <navPoint id="navPoint19" playOrder="17">
+        <navLabel>
+          <text>5.2 创建卷组</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id2" />  
+      </navPoint>
+      <navPoint id="navPoint20" playOrder="18">
+        <navLabel>
+          <text>5.3 激活一个卷组</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id3" />  
+      </navPoint>
+      <navPoint id="navPoint21" playOrder="19">
+        <navLabel>
+          <text>5.4 移除一个卷组</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id4" />  
+      </navPoint>
+      <navPoint id="navPoint22" playOrder="20">
+        <navLabel>
+          <text>5.5 添加物理卷到卷组中</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id5" />  
+      </navPoint>
+      <navPoint id="navPoint23" playOrder="21">
+        <navLabel>
+          <text>5.6 从一个卷组中移除一个物理卷</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id6" />  
+      </navPoint>
+      <navPoint id="navPoint24" playOrder="22">
+        <navLabel>
+          <text>5.7 创建一个逻辑卷</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id7" />  
+      </navPoint>
+      <navPoint id="navPoint25" playOrder="23">
+        <navLabel>
+          <text>5.8 移除一个逻辑卷</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id8" />  
+      </navPoint>
+      <navPoint id="navPoint26" playOrder="24">
+        <navLabel>
+          <text>5.9 扩展一个逻辑卷</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id9" />  
+      </navPoint>
+      <navPoint id="navPoint27" playOrder="25">
+        <navLabel>
+          <text>5.10 缩减一个逻辑卷</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id10" />  
+      </navPoint>
+      <navPoint id="navPoint28" playOrder="26">
+        <navLabel>
+          <text>5.11 迁移一个老化的的磁盘。</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id11" />  
+      </navPoint>
+      <navPoint id="navPoint29" playOrder="27">
+        <navLabel>
+          <text>5.12 迁移一个老化的的磁盘到新的替代磁盘上。</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id12" />  
+      </navPoint>
+      <navPoint id="navPoint30" playOrder="28">
+        <navLabel>
+          <text>5.13 使用快照备份</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id13" />  
+      </navPoint>
+      <navPoint id="navPoint31" playOrder="29">
+        <navLabel>
+          <text>5.14 迁移卷组到另外一个系统上</text>
+        </navLabel>
+        <content src="LVM学习/05-LVM操作.xhtml#id14" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint32" playOrder="30">
+      <navLabel>
+        <text>06 转化根文件系统到LVM</text>
+      </navLabel>
+      <content src="LVM学习/06-转化根文件系统到LVM.xhtml" />  
+    </navPoint>
+  </navMap>
+</ncx>

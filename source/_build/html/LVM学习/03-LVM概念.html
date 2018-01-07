@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>03 LVM概念 &mdash; My_Study_Lvm v0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="My_Study_Lvm v0.1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> My_Study_Lvm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">03 LVM概念</a><ul>
+<li><a class="reference internal" href="#id1">3.1 预览</a></li>
+<li><a class="reference internal" href="#vg">3.1 卷组 (VG)</a></li>
+<li><a class="reference internal" href="#pv">3.2 物理卷 (PV)</a></li>
+<li><a class="reference internal" href="#lv">3.3 逻辑卷 (LV)</a></li>
+<li><a class="reference internal" href="#pe">3.4 物理区块 (PE)</a></li>
+<li><a class="reference internal" href="#le">3.5 逻辑区块 (LE)</a></li>
+<li><a class="reference internal" href="#linear-striped">3.6 映射模式 (linear/striped)</a></li>
+<li><a class="reference internal" href="#id2">3.7 快照</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">My_Study_Lvm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>03 LVM概念</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/LVM学习/03-LVM概念.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lvm">
+<h1>03 LVM概念<a class="headerlink" href="#lvm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>3.1 预览<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text"><div class="highlight"><pre><span></span>+-- Volume Group --------------------------------+
+|                                                |
+|    +----------------------------------------+      |
+| PV | PE |  PE | PE | PE | PE | PE | PE | PE |      |
+|    +----------------------------------------+      |
+|      .              .          .        .          |
+|      .          .              .        .          |
+|    +----------------------------------------+      |
+| LV | LE |  LE | LE | LE | LE | LE | LE | LE |      |
+|    +----------------------------------------+      |
+|            .          .        .             .     |
+|            .              .        .         .     |
+|    +----------------------------------------+      |
+| PV | PE |  PE | PE | PE | PE | PE | PE | PE |      |
+|    +----------------------------------------+      |
+|                                                |
++------------------------------------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="vg">
+<h2>3.1 卷组 (VG)<a class="headerlink" href="#vg" title="Permalink to this headline">¶</a></h2>
+<p>卷组是LVM中使用的最高级别的抽象。 它将逻辑卷和物理卷集合在一起成为一个管理单元。</p>
+</div>
+<div class="section" id="pv">
+<h2>3.2 物理卷 (PV)<a class="headerlink" href="#pv" title="Permalink to this headline">¶</a></h2>
+<p>一个物理卷通常是一个硬盘，虽然它可能只是一个看起来像一个硬盘（如软件RAID设备）的设备。</p>
+</div>
+<div class="section" id="lv">
+<h2>3.3 逻辑卷 (LV)<a class="headerlink" href="#lv" title="Permalink to this headline">¶</a></h2>
+<p>相当于非LVM系统中的磁盘分区。 LV作为标准块设备可见; 因此LV可以包含文件系统（例如/ home）</p>
+</div>
+<div class="section" id="pe">
+<h2>3.4 物理区块 (PE)<a class="headerlink" href="#pe" title="Permalink to this headline">¶</a></h2>
+<p>每个物理卷都被划分为数据块（称为物理扩展盘区），这些扩展盘区与卷组的逻辑盘区具有相同的大小。</p>
+</div>
+<div class="section" id="le">
+<h2>3.5 逻辑区块 (LE)<a class="headerlink" href="#le" title="Permalink to this headline">¶</a></h2>
+<p>每个逻辑卷都被分割成数据块，称为逻辑盘区。 卷组中的所有逻辑卷的区段大小都是相同的。</p>
+</div>
+<div class="section" id="linear-striped">
+<h2>3.6 映射模式 (linear/striped)<a class="headerlink" href="#linear-striped" title="Permalink to this headline">¶</a></h2>
+<p>线性映射 : 将分配一定范围的PE到LV的一个区域，例如LE 1 - 99映射到PV1，LE 100 - 347映射到PV2。</p>
+<p>分条映射 : 将跨多个物理卷交织逻辑盘区的块，这个方式一定程度上提高了性能，具体如下</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>　　1st chunk of LE[1] -&gt; PV1[1], #第一个逻辑块在PV1设备上， 第二个在PV2设备上，等等。
+　　2nd chunk of LE[1] -&gt; PV2[1],
+　　3rd chunk of LE[1] -&gt; PV3[1],
+　　4th chunk of LE[1] -&gt; PV1[2],</p>
+</div>
+<div class="section" id="id2">
+<h2>3.7 快照<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>这是LVM提供的一个非常棒的功能就是快照了，他允许管理员创建一个新的块设备来呈现一个逻辑卷的的精确副本，在某个时间冻结，管理员可以及时备份指定一致状态下的数据，备份完毕就可以删除设备了。</p>
+<p>快照最初包含有关快照的一些元数据，但没有来自源逻辑卷的实际数据。快照使用写时复制（copy on write）技术来检测数据在原始数据块中何时更改。它将拍摄快照时保存的值复制到快照卷中的块中，然后允许将新数据存储在源块中。</p>
+<p>随着更多块从源逻辑卷上的原始值发生更改，快照大小也会增加。如果快照卷变满，它将被丢弃，所以分配足够的空间是非常重要的，具体取决于你数据的变换情况，如果快照大小和原始数据一样大，它将永远不会溢出的。</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, zhaojiedi1992.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'v0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

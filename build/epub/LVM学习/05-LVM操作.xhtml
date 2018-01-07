@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>05 LVM操作</title>
+    <link rel="stylesheet" href="../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> 
+  </head>
+  <body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lvm">
+<h1>05 LVM操作</h1>
+<div class="section" id="id1">
+<h2>5.1 初始化磁盘或者磁盘分区</h2>
+<p>运行pvcreate 在整个磁盘上</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># pvcreate /dev/hdb</span>
+</pre></div>
+</div>
+<p>运行pvcreate 在分区上</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># pvcreate /dev/hdb1</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>不建议在整个硬盘上创建lvm，没有分区信息容易被其他系统识别为干净的磁盘。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>5.2 创建卷组</h2>
+<p>创建卷组需要在指定的物理卷上面的。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># vgcreate my_volume_group /dev/hda1 /dev/hdb1</span>
+</pre></div>
+</div>
+<p>创建卷组是可以指定卷大小的，默认是32M。</p>
+</div>
+<div class="section" id="id3">
+<h2>5.3 激活一个卷组</h2>
+<p>如果我们重启系统或者关闭了卷组就需要激活它。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># vgchange -a y my_volume_group</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>5.4 移除一个卷组</h2>
+<p>移除卷组需要先停掉卷组的。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># vgchange -a n my_volume_group</span>
+<span class="c1"># vgremove my_volume_group</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>5.5 添加物理卷到卷组中</h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># vgextend my_volume_group /dev/hdc1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>5.6 从一个卷组中移除一个物理卷</h2>
+<p>移除物理卷前必须确保空间是足够的，使用pvdisplay查看</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># pvdisplay /dev/hda1</span>
+
+--- Physical volume ---
+PV Name               /dev/hda1
+VG Name               myvg
+PV Size               <span class="m">1</span>.95 GB / NOT usable <span class="m">4</span> MB <span class="o">[</span>LVM: <span class="m">122</span> KB<span class="o">]</span>
+PV#                   <span class="m">1</span>
+PV Status             available
+Allocatable           yes <span class="o">(</span>but full<span class="o">)</span>
+Cur LV                <span class="m">1</span>
+PE Size <span class="o">(</span>KByte<span class="o">)</span>       <span class="m">4096</span>
+Total PE              <span class="m">499</span>
+Free PE               <span class="m">0</span>
+Allocated PE          <span class="m">499</span>
+PV UUID               Sd44tK-9IRw-SrMC-MOkn-76iP-iftz-OVSen7
+</pre></div>
+</div>
+<p>如果没啥问题了，可以执行vgreduce去移出物理卷。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># vgreduce my_volume_group /dev/hda1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>5.7 创建一个逻辑卷</h2>
+<p>创建一个1500M的名字为testlv的lv</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># lvcreate -L 1500M -n testlv testvg</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>5.8 移除一个逻辑卷</h2>
+<p>逻辑卷的移除需要先取消挂载的。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># umount /dev/myvg/homevol</span>
+<span class="c1"># lvremove /dev/myvg/homevol</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>5.9 扩展一个逻辑卷</h2>
+<p>扩展主要有2种方式，一种是直接指定扩展到多大，一种是在原有基础上扩展多少。</p>
+<p>方案1：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># lvextend -L12G /dev/myvg/homevol</span>
+</pre></div>
+</div>
+<p>方案2：</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># lvextend -L+1G /dev/myvg/homevol</span>
+</pre></div>
+</div>
+<p>默认情况下，我们使用lvextend是扩展了逻辑卷的大小，但是文件系统的大小还是原来的值。 需要同步下，不同文件系统命令有所不同。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>lvextend有个-r的选项，如果指定可以完成自动同步。</p>
+</div>
+<p><em>ext2/ext3</em></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># umount /dev/myvg/homevol/dev/myvg/homevol</span>
+<span class="c1"># resize2fs /dev/myvg/homevol</span>
+<span class="c1"># mount /dev/myvg/homevol /home</span>
+</pre></div>
+</div>
+<p><em>reiserfs</em></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># resize_reiserfs -f /dev/myvg/homevol</span>
+</pre></div>
+</div>
+<p><em>xfs</em></p>
+<blockquote>
+<div><p># xfs_growfs /home</p>
+</div></blockquote>
+<p><em>jfs</em></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># mount -o remount,resize /home</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>扩展xfs和jfs文件系统的时候，不能指定挂载设备，必须指定挂载点。</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>5.10 缩减一个逻辑卷</h2>
+<p>缩减逻辑卷是有风险的，如果处理不当容易丢掉数据的。</p>
+<p><em>ext2/ext3</em></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># umount /home</span>
+<span class="c1"># resize2fs /dev/myvg/homevol 524288</span>
+<span class="c1"># lvreduce -L-1G /dev/myvg/homevol</span>
+<span class="c1"># mount /home</span>
+</pre></div>
+</div>
+<p><em>reiserfs</em></p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># umount /home</span>
+<span class="c1"># resize_reiserfs -s-1G /dev/myvg/homevol</span>
+<span class="c1"># lvreduce -L-1G /dev/myvg/homevol</span>
+<span class="c1"># mount -treiserfs /dev/myvg/homevol /home</span>
+</pre></div>
+</div>
+<p><em>xfs</em></p>
+<p>没办法缩减</p>
+<p><em>jfs</em></p>
+<p>没办法缩减</p>
+</div>
+<div class="section" id="id11">
+<h2>5.11 迁移一个老化的的磁盘。</h2>
+<p>如果有一个磁盘已经老化了，但是有大量数据在上面。那就需要迁移了，迁移前确保卷组的空间够使用。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># pvmove /dev/hdb</span>
+<span class="c1"># vgreduce dev /dev/hdb</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>pvmore是迁移数据，很慢的，如果你想获取迁移的详细信息，使用-v选项即可。</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>5.12 迁移一个老化的的磁盘到新的替代磁盘上。</h2>
+<p>如果有一个磁盘已经老化了，但是有大量数据在上面。新买了一个同样大小的盘用作替换的。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># pvcreate /dev/sdf</span>
+<span class="c1"># vgextend dev /dev/sdf</span>
+<span class="c1"># pvmove /dev/hdb /dev/sdf</span>
+<span class="c1"># vgreduce dev /dev/hdb</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>5.13 使用快照备份</h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># lvcreate -L592M -s -n dbbackup /dev/ops/databases</span>
+<span class="c1"># mkdir /mnt/ops/dbbackup</span>
+<span class="c1"># mount /dev/ops/dbbackup /mnt/ops/dbbackup</span>
+<span class="c1"># tar -cf /dev/rmt0 /mnt/ops/dbbackup</span>
+<span class="c1"># umount /mnt/ops/dbbackup</span>
+<span class="c1"># lvremove /dev/ops/dbbackup</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>xfs文件系统在挂载的时候需要指定–nouuid ro 选项才可以。</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>5.14 迁移卷组到另外一个系统上</h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># unmount /mnt/design/users                     # 卸载设备</span>
+<span class="c1"># vgchange -an design                           # 关闭卷组</span>
+<span class="c1"># vgexport design                               # 导出逻辑卷</span>
+<span class="c1"># 去除磁盘插入新的系统上面去</span>
+<span class="c1"># pvscan                                        # 扫描pv</span>
+<span class="c1"># vgimport design                               # 导入卷组</span>
+<span class="c1"># vgchange -ay design                           # 激活卷组</span>
+<span class="c1"># mkdir -p /mnt/design/users                    # 创建挂载点目录</span>
+<span class="c1"># mount /dev/design/users /mnt/design/users     # 挂载</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>迁移到其他系统之前请确保名字和目标的不同，使用rename去重命名，且使用sync同步几次，确保数据完全写入到迁移的盘上面。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
